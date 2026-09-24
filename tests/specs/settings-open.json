@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open settings (notification prefs, basic search prefs)."
+              "text": "Настройки уведомлений\n\nО совпадениях: включены\nО сообщениях: включены\nПоиск: Без заданных предпочтений"
             }
           }
         ],

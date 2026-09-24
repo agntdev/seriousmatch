@@ -1,17 +1,7 @@
 import { Composer } from "grammy";
-
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "🔎 Знакомства", data: "discovery:open" }) if the toolkit exposes it.
-
-const composer = new Composer();
-
-composer.callbackQuery("discovery:open", async (ctx) => {
-  await ctx.answerCallbackQuery();
-  await ctx.reply("Open the discovery placeholder screen (no matchmaking implemented in Phase 1).");
-});
-
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard, registerMainMenuItem } from "../toolkit/index.js";
+registerMainMenuItem({ label: "🔎 Знакомства", data: "discovery:open", order: 20 });
+const composer = new Composer<Ctx>();
+composer.callbackQuery("discovery:open", async (ctx) => { await ctx.answerCallbackQuery(); await ctx.reply("Раздел знакомств скоро откроется. Пока заполните анкету — так вас будет проще заметить.", { reply_markup: inlineKeyboard([[inlineButton("👤 Моя анкета", "profile:view"), inlineButton("⬅️ В меню", "menu:main")]]) }); });
 export default composer;
