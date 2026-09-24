@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Start guided profile creation (visible when user has no profile)."
+              "text": "Как вас зовут?"
             }
           }
         ],

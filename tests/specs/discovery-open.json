@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open the discovery placeholder screen (no matchmaking implemented in Phase 1)."
+              "text": "Раздел знакомств скоро откроется. Пока заполните анкету — так вас будет проще заметить."
             }
           }
         ],

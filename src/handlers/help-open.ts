@@ -1,17 +1,14 @@
 import { Composer } from "grammy";
-
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "🆘 Помощь", data: "help:open" }) if the toolkit exposes it.
-
-const composer = new Composer();
-
-composer.callbackQuery("help:open", async (ctx) => {
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard, registerMainMenuItem } from "../toolkit/index.js";
+import { notifyAdmin } from "../profile-data.js";
+registerMainMenuItem({ label: "🆘 Помощь", data: "help:open", order: 40 });
+const composer = new Composer<Ctx>();
+const text = "ℹ️ Здесь люди знакомятся для серьёзных отношений. Создайте анкету, добавьте фото и укажите немного о себе.\n\nНужна помощь? Напишите нам — мы обязательно разберёмся.";
+composer.callbackQuery("help:open", async (ctx) => { await ctx.answerCallbackQuery(); await ctx.reply(text, { reply_markup: inlineKeyboard([[inlineButton("Сообщить о проблеме", "report:open")], [inlineButton("⬅️ В меню", "menu:main")]]) }); });
+composer.callbackQuery("report:open", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Open help/FAQ (static owner-provided Russian text).");
+  const sent = await notifyAdmin(ctx, "Пользователь открыл форму сообщения о проблеме");
+  await ctx.reply(sent ? "Сообщение отправлено владельцу. Спасибо, что помогаете улучшать бот." : "Сообщение не отправилось: доступ владельца ещё не настроен.");
 });
-
 export default composer;

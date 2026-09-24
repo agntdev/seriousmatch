@@ -1,0 +1,15 @@
+[
+  {
+    "name": "полная регистрация анкеты с пропуском необязательных полей",
+    "steps": [
+      { "send": { "callback": "profile:create" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Как вас зовут?" } }] },
+      { "send": { "text": "Анна" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Какой пол указать в анкете?" } }] },
+      { "send": { "callback": "profile:gender:skip" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Сколько вам лет? Напишите число от 18 до 100 или дату в формате дд.мм.гггг." } }] },
+      { "send": { "text": "30" }, "expect": [{ "method": "sendMessage", "payload": { "text": "В каком городе вы живёте? Можно пропустить." } }] },
+      { "send": { "callback": "profile:city:skip" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Расскажите о себе в двух-трёх предложениях. Можно пропустить." } }] },
+      { "send": { "callback": "profile:bio:skip" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Пришлите до 6 фотографий или нажмите «Пропустить»." } }] },
+      { "send": { "callback": "profile:photos:done" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Проверьте анкету:\n\nИмя: Анна\nВозраст: 30\nПол: не указан\nГород: не указан\nО себе: не указано\nФото: 0" } }] },
+      { "send": { "callback": "profile:confirm" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Анкета сохранена. Пусть знакомство получится тёплым и взаимным!" } }] }
+    ]
+  }
+]

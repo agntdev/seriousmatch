@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "View and manage your existing profile (visible when user has a profile)."
+              "text": "Анкеты пока нет — нажмите «Создать анкету», чтобы начать."
             }
           }
         ],
